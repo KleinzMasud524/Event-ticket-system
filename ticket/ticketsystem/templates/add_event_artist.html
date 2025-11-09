@@ -1,0 +1,42 @@
+{% extends "./master_page.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <h1>Add Event Artist</h1>
+    <div class="container">
+    <form method="POST">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button type="submit" class="btn btn-success">Add Event Artist</button>
+    </form>
+    {% if msg %}
+        {{msg}}
+    {% endif %}
+
+    <table class="table caption-top">
+        <thead>
+            <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Event</th>
+            <th scope="col">Artist</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for event_artist in event_artists %}
+            <tr>
+                <th scope="row">{{event_artist.id}}</th>
+                <td>{{event_artist.event_id}}</td>
+                <td>{{event_artist.artist_id}}</td>
+                <td>
+                    <a href="{% url "edit_event_artist_page" event_artist.id %}" >Edit</a> |
+                    <a href="{% url "delete_event_artist_page" event_artist.id %}"
+                    onclick="return confirm('Confirm delete 😡!!!')">Delete</a> 
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    </div>
+
+{% endblock content %}

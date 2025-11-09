@@ -1,0 +1,16 @@
+{% extends "./master_page.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+        <h1>Edit {{event.event_name}}</h1>
+        <div class="container">
+            <form method="POST">
+                {% csrf_token %}
+                {{form|crispy}}
+
+                <input type="submit" class="bt btn-primary"></input>
+                <button type="button" class="btn btn-danger">Cancel</button>
+            </form>
+        </div>
+        <a href="{% url 'add_event_page' %}">Back to Event</a>
+{% endblock content %}

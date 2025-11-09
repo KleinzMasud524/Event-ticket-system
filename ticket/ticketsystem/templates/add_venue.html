@@ -1,0 +1,45 @@
+{% extends "./master_page.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+        <h1>Add Venue</h1>
+        <div class="container">
+            <form method="POST">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <button type="submit" class="btn btn-success">Success</button>
+            </form>
+            {% if msg %}
+                {{msg}}
+            {% endif %}
+
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope='col'>Id</th>
+                        <th scope='col'>Venue name</th>
+                        <th scope='col'>Address</th>
+                        <th scope='col'>Capacity</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for venue in venues %}
+                        <tr>
+                            <th scope="row">{{venue.id}}</th>
+                            <td>{{venue.venue_name}}</td>
+                            <td>{{venue.address}}</td>
+                            <td>{{venue.capacity}}</td>
+                            <td>
+                                <a href = "{% url "edit_venue_page" venue.id %}">Edit</a> |
+                                <a href = " {% url 'delete_venue_page' venue.id %}"
+                                onclick="return confirm ('Confirm delete 😡!!!')">
+                                Delete</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+
+{% endblock content %}

@@ -1,0 +1,48 @@
+{% extends "./master_page.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <h1>Add Ticket</h1>
+    <div class="container">
+    <form method="POST">
+        {% csrf_token %}
+        {{ form|crispy }}   
+        <button type="submit" class="btn btn-success">Add Ticket</button>
+    </form>
+    {% if msg %}
+        {{msg}}    
+    {% endif %}
+
+    <table class="table">
+        <thead>
+            <tr>
+            <th scope="col">Id</th>
+            <th scope="col">First name</th>
+            <th scope="col">Second name</th>
+            <th scope="col">Event</th>
+            <th scope="col">Ticket</th>
+            <th scope="col">Date</th>
+            </tr>
+        </thead>
+        
+        {% for ticket in tickets %}
+            <tbody class="table-group-divider">
+                <tr>
+                <th scope="row">{{ticket.id}}</th>
+                <td>{{ticket.first_name}}</td>
+                <td>{{ticket.second_name}}</td>
+                <td>{{ticket.event}}</td>
+                <td>{{ticket.ticket_type}}</td>
+                <td>{{ticket.date}}</td>
+                <td>
+                    <a href="{% url "edit_ticket_page" ticket.id %}">Edit</a> |
+                    <a href="{% url "delete_ticket_page" ticket.id %}"
+                    onclick="return confirm ('Confirm delete 🙁!!!')">Delete</a>
+                </td>
+                </tr>
+            </tbody>
+        {% endfor %}
+    </table>
+    </div>
+
+{% endblock content %}

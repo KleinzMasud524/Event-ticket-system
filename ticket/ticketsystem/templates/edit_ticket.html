@@ -1,0 +1,16 @@
+{% extends "./master_page.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+        <h1>Edit {{ticket.first_name}} {{ticket.second_name}}</h1>
+        <div class="container">
+            <form method="POST">
+                {% csrf_token %}
+                {{form|crispy}}
+
+                <input type="Submit" class="btn btn-primary"></input>
+                <button type="button" class="btn btn-danger" onclick="{% url "add_ticket_page" %}">Cancel</button>
+            </form>
+        </div>
+        <a href="{% url "add_ticket_page" %}">Back to Add Ticket</a>
+{% endblock content %}

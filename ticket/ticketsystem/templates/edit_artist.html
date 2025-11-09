@@ -1,0 +1,16 @@
+{% extends "./master_page.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+        <h1>Edit {{artist.first_name}} {{artist.second_name}}</h1>
+        <div class="container">
+            <form method="POST">
+                {% csrf_token %}
+                {{form|crispy}}
+                
+                <input type="submit" class="btn btn-primary"></input>
+                <button type="button" class="btn btn-danger">Cancel</button>
+            </form>
+        </div>
+        <a href= "{% url 'add_artist_page' %}">Back to Add Artist</a>
+{% endblock content %}
